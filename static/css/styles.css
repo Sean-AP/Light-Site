@@ -1,0 +1,74 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #e1e1e1 !important;
+  width: 100%;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+  
+.container,
+.script-container {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 0.5rem 2rem;
+}
+  
+.title {
+  line-height: 1.15;
+  font-size: 2rem;
+  margin: 0.25rem;
+}
+
+.select2-container {
+  min-width: 25%;
+  max-width: 85%;
+}
+
+.script-container {
+  display: none;
+}
+
+.sp-container button, .script-button {
+  background-color: #0d6efd;
+  color: #fff;
+  border: 1px solid #000;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  padding: 0.375rem 0.75rem !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.sp-container button:hover, .script-button:hover {
+    cursor: pointer;
+}
+
+.sp-container button {
+  border-radius: 3px;
+}
+
+.script-button,
+#editor {
+  min-width: 250px;
+  width: 67vh;
+}
+
+#script {
+  height: 50vh;
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Page Title</title>
+    <meta name="description" content="My Page Description">
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet"/>
+    <!-- Toggle -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <!-- Spectrum -->
+    <link href="css/spectrum.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
+    <!-- Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 class="title">Set</h1>
+        <select id="controller-select" class="select" multiple></select>
+        <h1 class="title">Lights</h1>
+
+    </div>
+
+    <br/>
+
+    <div class="container">
+
+        <input id="mode" checked type="checkbox" data-toggle="toggle" data-on="Colour" data-off="Script" data-onstyle="primary" data-offstyle="primary">
+
+        <br/>
+
+        <div class="container script-container">
+
+            <select id="preset-select" class="select">
+                <option></option>
+            </select>
+            <br/>
+
+        </div>
+
+        <div id="editor"></div>
+
+        <div class="script-container">
+
+            <button id="submit-script" class="script-button">Submit</button> 
+            <br/>
+            <button id="save-script" class="script-button">Save</button>
+
+        </div>
+
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
