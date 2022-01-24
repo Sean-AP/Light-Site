@@ -16,7 +16,7 @@ function submit(payload) {
 
     $("#controller-select").select2("data")
     .forEach(controller => {
-        fetch(`/api/submit/${controller.group}/${controller.name}`, {
+        fetch(`api/submit/${controller.group}/${controller.name}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -131,7 +131,7 @@ function toggleMode(colourMode) {
 
 // Get all known controllers using API
 function getControllers() {
-    fetch("/api/controllers")
+    fetch("api/controllers")
     .then(async res => {
         if (res.ok) {
             return res.json();
@@ -149,7 +149,7 @@ function getControllers() {
 
 // Get all known presets using API
 function getPresets() {
-    fetch("/api/presets")
+    fetch("api/presets")
     .then(async res => {
         if (res.ok) {
             return res.json();

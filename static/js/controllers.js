@@ -1,6 +1,6 @@
 // Get all known controllers using API
 function getControllers() {
-    return fetch("/api/controllers")
+    return fetch("api/controllers")
     .then(async res => {
         if (res.ok) {
             return res.json();
@@ -18,7 +18,7 @@ function getControllers() {
 }
 
 function post() {
-    fetch("/api/controllers", {
+    fetch("api/controllers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -32,7 +32,7 @@ function post() {
 }
 
 function put() {
-    fetch(`/api/controllers/${$("#group").val()}/${$("#name").val()}`, {
+    fetch(`api/controllers/${$("#group").val()}/${$("#name").val()}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -44,7 +44,7 @@ function put() {
 }
 
 function remove() {
-    fetch(`/api/controllers/${$("#group").val()}/${$("#name").val()}`, {
+    fetch(`api/controllers/${$("#group").val()}/${$("#name").val()}`, {
         method: "DELETE",
     })
     .then(handleRes);
