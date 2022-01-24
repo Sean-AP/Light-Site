@@ -63,7 +63,7 @@ get = (req, res) => {
 post = (req, res) => {
     let filename = sanitize(req.body.filename);
 
-    fs.writeFile(path.join(customDir, filename + '.txt'), req.body.payload, err => {
+    fs.writeFile(path.join(customDir, filename + ".txt"), req.body.payload, err => {
         if (err) {
             console.error("Failed to write to file: " + err);
             res.status(500).send("Failed to write to file.");

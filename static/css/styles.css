@@ -72,3 +72,19 @@ body {
 #script {
   height: 50vh;
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.footer a {
+  color: #777777;
+}
+
+.footer a:hover {
+  color: #444444;
+}

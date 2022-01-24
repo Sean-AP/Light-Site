@@ -97,64 +97,80 @@ get = (req, res) => {
 }
 
 post = (req, res) => {
-	let filename = getFilename(req.body);
+	sendPing(req.body.host, req.body.port)
+	.then(data => {
+		res.status(data.status);
 
-	if (fs.existsSync(path.join(controllerDir, filename))) {
-		res.status(400).send(`Controller '${req.params.group}-${req.params.name}' already exists`);
-		res.end();
-		return;
-	}
+		if (data.hasOwnProperty("data")) {
+			let filename = getFilename({ group: req.body.group, name: data.data.name });
+			let filepath = path.join(controllerDir, filename); 
 
-	try {
-		sendPing(req.body.host, req.body.port)
-		.then(data => data.json())
-		.then(data => {
-			res.status(data.status);
+			try {
+				if (fs.existsSync(filepath)) {
+					res.status(400).send(`Controller '${req.body.group}-${data.data.name}' already exists`);
+					res.end();
+					return;
+				}
 
-			if (data.hasOwnProperty("data")) {
-				fs.writeFileSync(path.join(controllerDir, filename), JSON.stringify({
+				fs.writeFileSync(filepath, JSON.stringify({
 					group: req.body.group,
 					name: data.data.name,
 					host: req.body.host,
 					port: req.body.port
 				}));
 			}
-			else {
-				throw new Error();
+			catch (err) {
+				console.error(`Failed to create profile for ${req.body.group}-${data.data.name}: ${err}`);
+				res.status(500).send("Failed to create profile");
 			}
+		}
+		else {
+			console.error(`Failed to ping ${req.body.host}:${req.body.port}: ${data.message}`);
+			res.status(500).send("Controller is offline - no profile was created");
+		}
 
-			res.end();
-			return;
-		})
-	}
-	catch (err) {
-		console.error(`Failed to ping ${req.body.host}:${req.body.port}: ${err}`);
-		res.status(500).send("Controller is offline - no profile was created");
 		res.end();
 		return;
-	}
+	})
 }
 
 put = (req, res) => {
 	let filename = getFilename(req.params);
+	let filepath = path.join(controllerDir, filename);
 
-	if (!fs.existsSync(path.join(controllerDir, filename))) {
+	if (!fs.existsSync(filepath)) {
 		res.status(404).send(`Could not find profile for controller '${req.params.group}-${req.params.name}'`);
 		res.end();
 		return;
 	}
 
 	try {
-		fs.writeFileSync(path.join(controllerDir, filename), JSON.stringify({
-			group: req.body.group,
-			name: req.body.name,
-			host: req.body.host,
-			port: req.body.port
-		}));
+		let json = JSON.parse(fs.readFileSync(filepath));
+
+		sendPing(req.body.host, req.body.port)
+		.then(data => {
+			res.status(data.status);
+
+			if (data.hasOwnProperty("data")) {
+				fs.writeFileSync(filepath, JSON.stringify({
+					group: json.group,
+					name: json.name,
+					host: req.body.host,
+					port: req.body.port
+				}));
+			}
+			else {
+				console.error(`Failed to update controller ${filename}: ${data.message}`);
+				res.status(500).send("Controller is offline - the profile cannot be updated");
+			}
+
+			res.end();
+			return;
+		});
 	}
 	catch (err) {
 		console.error(`Failed to update controller ${filename}: ${err}`);
-		res.status(500).send("Failed to update controller profile");
+		res.status(500).send("Failed to update profile");
 		res.end();
 		return;
 	}
@@ -170,14 +186,16 @@ remove = (req, res) => {
 	}
 
 	try {
-		fs.unlinkSync(fs.readFileSync(path.join(controllerDir, filename)))
+		fs.unlinkSync(path.join(controllerDir, filename));
+		res.status(200);
 	}
 	catch (err) {
 		console.error(`Failed to delete controller ${filename}: ${err}`);
 		res.status(500).send("Failed to delete controller profile");
-		res.end();
-		return;
 	}
+
+	res.end();
+	return;
 }
 
 module.exports = {

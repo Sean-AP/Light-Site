@@ -18,7 +18,7 @@ function submit(payload) {
     .forEach(controller => {
         fetch(`/api/submit/${controller.group}/${controller.name}`, {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 payload: payload
             })
@@ -129,6 +129,7 @@ function toggleMode(colourMode) {
     return (yiq >= 128) ? "#000000" : "#FFFFFF";
 }
 
+// Get all known controllers using API
 function getControllers() {
     fetch("/api/controllers")
     .then(async res => {
@@ -142,10 +143,11 @@ function getControllers() {
     })
     .catch(err => {
         console.log(err);
-        $("#preset-select").select2({ width: "auto" });
+        $("#controller-select").select2({ width: "auto" });
     });
 }
 
+// Get all known presets using API
 function getPresets() {
     fetch("/api/presets")
     .then(async res => {
