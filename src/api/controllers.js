@@ -6,6 +6,10 @@ const sanitize = require("sanitize-filename");
 const localSocketTimeout = 1000;
 const controllerDir = "src/controllers";
 
+if (!fs.existsSync(controllerDir)) {
+    fs.mkdirSync(controllerDir);
+}
+
 findControllers = () => {
     try {
 		let i = 0;

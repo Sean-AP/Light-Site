@@ -5,6 +5,14 @@ const sanitize = require("sanitize-filename");
 const defaultDir = "src/scripts/default";
 const customDir = "src/scripts/custom";
 
+if (!fs.existsSync(defaultDir)) {
+    fs.mkdirSync(defaultDir);
+}
+
+if (!fs.existsSync(customDir)) {
+    fs.mkdirSync(customDir);
+}
+
 findFiles = (dir, id) => {
     try {
         let files = fs.readdirSync(dir);
