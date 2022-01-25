@@ -91,18 +91,12 @@ function toggleMode(colourMode) {
         // Load editor
         let editor = ace.edit("script");
 
-        editor.setOptions({
-            minLines: 0,
-            maxLines: 200
-        });
-
         editor.getSession().setMode("ace/mode/python");
         editor.getSession().setUseWorker(false);
 
         editor.setTheme("ace/theme/cobalt");
         editor.setFontSize("12pt");
 
-        editor.resize(true);
         editor.setBehavioursEnabled(true);
         editor.getSession().setValue(currentScript);
 
