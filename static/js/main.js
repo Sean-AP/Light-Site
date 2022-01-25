@@ -26,6 +26,23 @@ function submit(payload) {
     });
 }
 
+function save() {
+    let filename = prompt("Enter a filename");
+
+    if (filename === null || filename === "") {
+        return;
+    }
+
+    fetch("api/presets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            filename: filename,
+            payload: currentScript
+        })
+    })
+}
+
 /**
  * Handle toggling between colour and script modes
  * @param {*} colourMode Which mode is selected (true = colour, false = script)
@@ -183,7 +200,7 @@ $(document).ready(function() {
     });
 
     $("#save-script").on("click", function() {
-        alert("Not implemented yet!");
+        save();
     })
 
     // Artificially trigger mode toggle event using the default state 
